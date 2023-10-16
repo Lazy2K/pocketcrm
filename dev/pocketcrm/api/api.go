@@ -1,13 +1,15 @@
 package api
 
 import (
-	"io"
-	"fmt"
 	"errors"
+	"fmt"
+	"io"
 	"net/http"
+	"pocketcrm/database"
 )
 
 func getRoot(w http.ResponseWriter, r * http.Request) {
+	database.Query()
 	fmt.Printf("Got /")
 	io.WriteString(w, "Hello World!")
 }
