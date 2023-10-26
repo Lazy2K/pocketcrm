@@ -1,7 +1,7 @@
 package main
 
 import (
-	"pocketcrm/api"
+	"pocketcrm/packages/api"
 )
 
 func main() {

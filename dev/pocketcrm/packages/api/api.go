@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"pocketcrm/api/middleware"
-	"pocketcrm/database"
+	"pocketcrm/packages/database"
+	"pocketcrm/packages/middleware"
 )
 
 func getRoot(w http.ResponseWriter, r * http.Request) {
