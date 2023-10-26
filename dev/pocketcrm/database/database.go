@@ -1,6 +1,14 @@
 package database
 
+import (
+	"fmt"
+)
+
+func Connect() {
+	
+}
+
 // Capital function name to export it
 func Query(){
-	// None
+	fmt.Printf("Database query\n")
 }
