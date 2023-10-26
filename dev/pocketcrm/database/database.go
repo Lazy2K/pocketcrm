@@ -1,13 +1,14 @@
 package database
 
 import (
-	"database/sql"
-	"github.com/mattn/go-sqlite3"
-	"log"
 	"fmt"
 )
 
+func Connect() {
+	
+}
+
 // Capital function name to export it
 func Query(){
-
+	fmt.Printf("Database query\n")
 }

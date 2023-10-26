@@ -5,5 +5,6 @@ import (
 )
 
 func main() {
-	api.StartServer()
+	const PORT = ":8000" // Get this from a config file later or smthn for easy setup on user vms
+	api.StartServer(PORT)
 }
