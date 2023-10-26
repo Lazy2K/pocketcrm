@@ -1,2 +1,2 @@
 # pocketcrm
-An open source self-hosted CRM writen in Go.
+An (not really) open source self-hosted CRM writen in Go.
