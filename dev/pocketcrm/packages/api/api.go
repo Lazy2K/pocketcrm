@@ -1,18 +1,19 @@
 package api
 
 import (
-	"fmt"
 	"io"
 	"net/http"
 	"pocketcrm/packages/database"
 	"pocketcrm/packages/middleware"
 )
 
-func getRoot(w http.ResponseWriter, r * http.Request) {
+func root(w http.ResponseWriter, r *http.Request) {
 	database.Query()
-	fmt.Printf("Got /\n")
 	io.WriteString(w, "Hello World!\n")
-	middleware.Log()
+}
+
+func account(w http.ResponseWriter, r *http.Request){
+	io.WriteString(w, "Account Page\n")
 }
 
 func StartServer(port string) {
@@ -20,7 +21,8 @@ func StartServer(port string) {
 	mux := http.NewServeMux()
 
 	// Mux routes
-	mux.HandleFunc("/", getRoot)
+	mux.HandleFunc("/", middleware.Log(root))
+	mux.HandleFunc("/account", middleware.Log(account))
 
 	// Listen on port
 	http.ListenAndServe(port, mux)
