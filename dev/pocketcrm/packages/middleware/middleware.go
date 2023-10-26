@@ -14,6 +14,9 @@ func Log(next http.HandlerFunc) http.HandlerFunc {
 }
 
 // User authentication middleware
-func Auth(){
-	
+func Auth(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		fmt.Printf("\nRoute: %s\nMethod: %s\n", r.URL.Path, r.Method)
+		next(w, r)
+	}
 }
