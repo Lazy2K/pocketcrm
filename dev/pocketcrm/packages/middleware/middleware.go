@@ -2,13 +2,22 @@ package middleware
 
 import (
 	"fmt"
+	"io"
+	"log"
 	"net/http"
 )
 
 // Logging middleware function
 func Log(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		fmt.Printf("\nRoute: %s\nMethod: %s\n", r.URL.Path, r.Method)
+		body, err := io.ReadAll(r.Body)
+		r.Body.Close()
+		if err != nil {
+			fmt.Printf("Error\nRoute: %s\nMethod: %s\n", r.URL.Path, err)
+		}
+		fmt.Printf("%s", body)
+
+		// End middleware, call next handler
 		next(w, r)
 	}
 }
@@ -16,7 +25,18 @@ func Log(next http.HandlerFunc) http.HandlerFunc {
 // User authentication middleware
 func Auth(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		fmt.Printf("\nRoute: %s\nMethod: %s\n", r.URL.Path, r.Method)
+		fmt.Printf("\nMethod: %s\nRoute: %s\n", r.Method, r.URL.Path)
+		if r.Method == "POST" {
+			body, err := io.ReadAll(r.Body)
+			r.Body.Close()
+			if err != nil {
+				fmt.Printf("Post Request Body Parse Error\n")
+				log.Fatalln(err)
+			}
+			fmt.Printf("Body: \n%s\n", body)
+		}
+
+		// End middleware, call next handler
 		next(w, r)
 	}
 }
