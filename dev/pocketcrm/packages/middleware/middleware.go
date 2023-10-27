@@ -10,13 +10,6 @@ import (
 // Logging middleware function
 func Log(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		body, err := io.ReadAll(r.Body)
-		r.Body.Close()
-		if err != nil {
-			fmt.Printf("Error\nRoute: %s\nMethod: %s\n", r.URL.Path, err)
-		}
-		fmt.Printf("%s", body)
-
 		// End middleware, call next handler
 		next(w, r)
 	}
