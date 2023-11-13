@@ -1,4 +1,4 @@
-package api
+package web
 
 import (
 	"html/template"
@@ -13,7 +13,10 @@ func root(w http.ResponseWriter, r *http.Request) {
 	base := filepath.Join("static/templates", "base.html")
 	temp, _ := template.ParseFiles(base)
 	temp.ExecuteTemplate(w, "base", nil)
+}
 
+func login(w http.ResponseWriter, r *http.Request) {
+	// Do nil rn
 }
 
 
@@ -22,6 +25,7 @@ func StartServer(port string) {
 	mux := http.NewServeMux()
 
 	// Un-authenticated rotues
+	mux.HandleFunc("/login", middleware.Log(login))
 
 	// Authenticated routes
 	mux.HandleFunc("/", middleware.Auth(root))
