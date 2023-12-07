@@ -10,7 +10,7 @@ import (
 
 func root(w http.ResponseWriter, r *http.Request) {
 	database.Query()
-	base := filepath.Join("static/templates", "base.html")
+	base := filepath.Join("ui/dist", "index.html")
 	temp, _ := template.ParseFiles(base)
 	temp.ExecuteTemplate(w, "base", nil)
 
