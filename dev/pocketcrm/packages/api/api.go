@@ -19,6 +19,8 @@ func account(w http.ResponseWriter, r *http.Request){
 	io.WriteString(w, "Account Page\n")
 }
 
+
+
 func StartServer(port string) {
 	// Setup server mux
 	mux := http.NewServeMux()
@@ -29,6 +31,10 @@ func StartServer(port string) {
 	// Authenticated routes
 	mux.HandleFunc("/", root)
 	mux.HandleFunc("/account", account)
+
+	// I don't yet understand why this works but it does....
+	fileHandler := http.StripPrefix("/static/", http.FileServer(http.Dir("ui/pocketcrm-ui/dist")))
+	mux.Handle("/static/", fileHandler)
 
 	// Listen on port
 	http.ListenAndServe(port, mux)
