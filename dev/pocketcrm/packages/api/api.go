@@ -33,7 +33,7 @@ func StartServer(port string) {
 	mux.HandleFunc("/account", account)
 
 	// I don't yet understand why this works but it does....
-	fileHandler := http.StripPrefix("/static/", http.FileServer(http.Dir("ui/pocketcrm-ui/dist")))
+	fileHandler := http.StripPrefix("/static/", http.FileServer(http.Dir("./ui/pocketcrm-ui/dist")))
 	mux.Handle("/static/", fileHandler)
 
 	// Listen on port
