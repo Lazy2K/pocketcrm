@@ -4,7 +4,6 @@ import (
 	"io"
 	"net/http"
 	"pocketcrm/packages/database"
-	"pocketcrm/packages/middleware"
 )
 
 func root(w http.ResponseWriter, r *http.Request) {
@@ -25,11 +24,11 @@ func StartServer(port string) {
 	mux := http.NewServeMux()
 
 	// Un-authenticated rotues
-	mux.HandleFunc("/login", middleware.Log(login))
+	mux.HandleFunc("/login", login)
 
 	// Authenticated routes
-	mux.HandleFunc("/", middleware.Auth(root))
-	mux.HandleFunc("/account", middleware.Auth(account))
+	mux.HandleFunc("/", root)
+	mux.HandleFunc("/account", account)
 
 	// Listen on port
 	http.ListenAndServe(port, mux)
