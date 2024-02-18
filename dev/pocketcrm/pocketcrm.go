@@ -1,11 +1,16 @@
 package main
 
 import (
+	"embed"
 	"pocketcrm/packages/api"
 	"pocketcrm/packages/dashboard"
 	"pocketcrm/packages/database"
 	"sync"
 )
+
+//go:embed ui/pocketcrm-ui/dist/*
+var files embed.FS
+
 
 func initPocketcrm() {
 	
@@ -16,6 +21,8 @@ func main() {
 	database.Connect()
 	const API_PORT = ":8000" // Get this from a config file later or smthn for easy setup on user vms
 	const DASH_PORT = ":80" // Or even run them on the same port but have them use different paths
+
+	
 
 	group := new(sync.WaitGroup)
 	group.Add(2)
@@ -28,7 +35,7 @@ func main() {
 
 	// Annon function to start the Dashboard server
 	go func() {
-		dashboard.StartServer(DASH_PORT)
+		dashboard.StartServer(DASH_PORT, files)
 		group.Done()
 	}()
 

@@ -1,19 +1,19 @@
 package dashboard
 
 import (
+	"embed"
 	"net/http"
 )
 
 
 
-
-func StartServer(port string) {
+func StartServer(port string, files embed.FS) {
 	// Setup server mux
 	mux := http.NewServeMux()
 
 	// I don't yet understand why this works but it does....
-	fileHandler := http.StripPrefix("/static/", http.FileServer(http.Dir("./ui/pocketcrm-ui/dist")))
-	mux.Handle("/static/", fileHandler)
+	fileHandler := http.FileServer(http.FS(files))
+	mux.Handle("/", fileHandler)
 
 	// Listen on port
 	http.ListenAndServe(port, mux)
