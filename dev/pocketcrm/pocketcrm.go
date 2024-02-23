@@ -8,7 +8,7 @@ import (
 	"sync"
 )
 
-//go:embed ui/pocketcrm-ui/dist/*
+//go:embed ui/pocketcrm-ui/dist/* static
 var files embed.FS
 
 

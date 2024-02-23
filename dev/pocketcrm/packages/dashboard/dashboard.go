@@ -12,7 +12,7 @@ func StartServer(port string, files embed.FS) {
 	mux := http.NewServeMux()
 
 	// I don't yet understand why this works but it does....
-	fileHandler := http.FileServer(http.FS(files))
+	fileHandler := http.StripPrefix("", http.FileServer(http.FS(files)))
 	mux.Handle("/", fileHandler)
 
 	// Listen on port
