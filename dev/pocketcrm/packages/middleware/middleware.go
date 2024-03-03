@@ -35,6 +35,7 @@ func Auth(next http.HandlerFunc) http.HandlerFunc {
 	}
 }
 
+// Static files root path middleware
 func RootPath(h http.Handler, dir string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == "/" {
