@@ -4,6 +4,7 @@ import (
 	"embed"
 	"fmt"
 	"net/http"
+	"pocketcrm/packages/middleware"
 	"strings"
 )
 
@@ -30,7 +31,7 @@ func StartServer(port string, files embed.FS) {
 
 	// I don't yet understand why this works but it does....
 	fileHandler := http.FileServer(http.FS(files))
-	rootFileHandler := rootPath(fileHandler)
+	rootFileHandler := middleware.RootPath(fileHandler, distDir)
 	mux.Handle("/", rootFileHandler)
 
 	// Listen on port
