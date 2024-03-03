@@ -5,6 +5,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"strings"
 )
 
 // Logging middleware function
@@ -33,3 +34,19 @@ func Auth(next http.HandlerFunc) http.HandlerFunc {
 		next(w, r)
 	}
 }
+
+// Static files root path middleware
+func RootPath(h http.Handler, dir string) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path == "/" {
+			r.URL.Path = fmt.Sprintf("/%s/", dir)
+		} else {
+			b := strings.Split(r.URL.Path, "/")[0]
+			if b != dir {
+				r.URL.Path = fmt.Sprintf("/%s%s", dir, r.URL.Path)
+			}
+		}
+		h.ServeHTTP(w,r)
+	})
+}
+
